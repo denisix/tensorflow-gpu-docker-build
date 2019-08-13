@@ -1,0 +1,21 @@
+version: '2.3'
+
+services:
+  tf:
+    build: ./tf
+    stdin_open: true
+    tty: true
+    #image: tensorflow-gpu_tf:latest
+    runtime: nvidia
+    ports:
+      - 8888:8888
+      - 6006:6006
+    environment:
+      - TF_FORCE_GPU_ALLOW_GROWTH
+      - NVIDIA_VISIBLE_DEVICES=all
+    volumes:
+      - ./notebooks:/tf
+    devices:
+      - /dev/nvidia0:/dev/nvidia0
+      - /dev/nvidiactl:/dev/nvidiactl
+      - /dev/nvidia-uvm:/dev/nvidia-uvm
